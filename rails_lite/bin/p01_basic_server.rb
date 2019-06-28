@@ -1,6 +1,8 @@
 require 'rack'
 
 app = Proc.new do |env|
+    puts env
+
     req = Rack::Request.new(env)
     res = Rack::Response.new
     res['Content-Type'] = 'text/html'
@@ -14,5 +16,5 @@ end
 
 Rack::Server.start(
     app: app,
-    port: 3000
+    Port: 3000
 )
