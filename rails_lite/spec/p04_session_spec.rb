@@ -1,6 +1,7 @@
 require 'rack'
 require 'session'
 require 'controller_base'
+require 'byebug'
 
 describe Session do
   let(:req) { Rack::Request.new({ 'rack.input' => {} }) }
@@ -17,11 +18,14 @@ describe Session do
     context 'without cookies in request' do
       before(:each) do
         session = Session.new(req)
+        # puts 'BEFORE'
+        # debugger
         session['first_key'] = 'first_val'
         session.store_session(res)
       end
 
       it 'adds new cookie with \'_rails_lite_app\' name to response' do
+        # debugger
         cookie_str = res.headers['Set-Cookie']
         cookie = Rack::Utils.parse_query(cookie_str)
         expect(cookie['_rails_lite_app']).not_to be_nil
